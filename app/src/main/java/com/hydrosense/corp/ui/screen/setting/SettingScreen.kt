@@ -1,5 +1,6 @@
 package com.hydrosense.corp.ui.screen.setting
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,9 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 // Import warna dari paket tema yang disediakan
 import com.hydrosense.corp.ui.theme.*
-import com.hydrosense.corp.ui.theme.AccentGreen // Bisa digunakan untuk warna tombol
-import com.hydrosense.corp.ui.theme.AccentRed // Contoh warna lain
-import com.hydrosense.corp.ui.theme.AccentBlue // Contoh warna lain
+
+import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
+import com.hydrosense.corp.ui.screen.login.LoginActivity
 
 
 
@@ -124,7 +126,27 @@ fun SettingScreen(vm: SettingViewModel = viewModel()) {
                 ) {
                     Text(
                         text = "Save Changes",
-                        color = AccentPurple
+                        color = AccentWhite
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                val context = LocalContext.current // Navigasi Embed ajah :v
+                Button(
+                    onClick = {
+                        val intent = Intent(context, LoginActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+
+                        context.startActivity(intent)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(
+                        text = "Logout",
+                        color = AccentWhite
                     )
                 }
             }

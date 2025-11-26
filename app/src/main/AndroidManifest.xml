@@ -34,6 +34,7 @@
             android:theme="@style/Theme.HydroSense" />
 
         <!-- 6 Activity -->
+        <activity android:name=".ui.screen.login.LoginActivity" />
         <activity android:name=".ui.screen.home.HomeActivity" />
         <activity android:name=".ui.screen.history.HistoryActivity" />
         <activity android:name=".ui.screen.mode.ModeActivity" />

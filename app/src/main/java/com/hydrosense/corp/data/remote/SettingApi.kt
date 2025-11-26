@@ -106,4 +106,30 @@ class ApiService(private val baseUrl: String) {
             "Koneksi Gagal (Trigger): ${e.message}"
         }
     }
+
+    suspend fun loginPin(pin: String): AuthResponse {
+        return try {
+            val response = ApiClient.client.post("$baseUrl/api/account/verify/pin") { // Asumsi endpoint login
+                contentType(ContentType.Application.Json)
+                setBody(LoginRequest(pin = pin))
+            }
+            // Menggunakan body<AuthResponse> karena respons Anda memiliki success & message
+            response.body<AuthResponse>()
+        } catch (e: Exception) {
+            AuthResponse(success = false, message = "Koneksi Gagal (Login): ${e.message}")
+        }
+    }
+
+    // Fungsi untuk login menggunakan Recovery Code
+    suspend fun loginRecovery(code: String): AuthResponse {
+        return try {
+            val response = ApiClient.client.post("$baseUrl/api/account/verify/recovery") { // Asumsi endpoint recovery
+                contentType(ContentType.Application.Json)
+                setBody(RecoveryLoginRequest(code = code))
+            }
+            response.body<AuthResponse>()
+        } catch (e: Exception) {
+            AuthResponse(success = false, message = "Koneksi Gagal (Recovery): ${e.message}")
+        }
+    }
 }

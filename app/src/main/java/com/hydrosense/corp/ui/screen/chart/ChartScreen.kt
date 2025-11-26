@@ -70,7 +70,6 @@ fun ChartScreen(vm: ChartViewModel = viewModel()) {
         val validData = vm.sensorData.filter { it.humidity != null && it.temperature != null }
             .reversed()
 
-
         if (validData.isEmpty()) {
             Box(
                 modifier = Modifier.fillMaxSize(),
