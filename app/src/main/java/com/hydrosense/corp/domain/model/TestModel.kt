@@ -1,12 +1,8 @@
 package com.hydrosense.corp.domain.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class SensorData(
-    val id: Int,
+data class TestModel(
     val time: String,
-    val soil: Int? = null,
-    val humidity: Int? = null,
-    val temperature: Double? = null
+    val soil: Int,
+    val humidity: Int,
+    val temperature: Double
 )

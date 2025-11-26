@@ -2,9 +2,9 @@ package com.hydrosense.corp.ui.screen.setting
 
 import com.hydrosense.corp.ui.screen.home.*
 import com.hydrosense.corp.ui.screen.mode.*
-import com.hydrosense.corp.ui.screen.history.*
+import com.hydrosense.corp.ui.screen.test.*
 import com.hydrosense.corp.ui.screen.chart.*
-import com.hydrosense.corp.ui.screen.setting.*
+import com.hydrosense.corp.ui.screen.history.*
 
 import android.content.Intent
 import android.os.Bundle

@@ -2,7 +2,6 @@ package com.hydrosense.corp.ui.screen.history
 
 import com.hydrosense.corp.ui.screen.home.*
 import com.hydrosense.corp.ui.screen.mode.*
-import com.hydrosense.corp.ui.screen.history.*
 import com.hydrosense.corp.ui.screen.chart.*
 import com.hydrosense.corp.ui.screen.setting.*
 
@@ -20,16 +19,10 @@ import androidx.compose.ui.unit.dp
 import com.hydrosense.corp.ui.components.BottomBar
 import com.hydrosense.corp.ui.theme.BgMain
 import com.hydrosense.corp.ui.theme.*
-import com.hydrosense.corp.data.repository.SensorRepository
-import com.hydrosense.corp.data.remote.RetrofitInstance
 
 class HistoryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inisialisasi repository & viewmodel
-        val repository = SensorRepository(RetrofitInstance.getApi(this))
-        val viewModel = HistoryViewModel(repository)
 
         setContent {
             HydroSenseTheme {
@@ -43,9 +36,7 @@ class HistoryActivity : ComponentActivity() {
                                 currentScreen = screen
                                 when (screen) {
                                     "Home" -> startActivity(Intent(this, HomeActivity::class.java))
-                                    "History" -> { /* tetap di halaman ini */
-                                    }
-
+                                    "History" -> {}
                                     "Mode" -> startActivity(Intent(this, ModeActivity::class.java))
                                     "Chart" -> startActivity(
                                         Intent(
@@ -66,12 +57,18 @@ class HistoryActivity : ComponentActivity() {
                     }
                 ) { paddingValues ->
                     // Pass viewmodel ke HistoryScreen
-                    HistoryScreen(
-                        viewModel = viewModel,
+                    // Contoh konten Chart
+                    Column(
                         modifier = Modifier
+                            .fillMaxSize()
                             .background(BgMain)
                             .padding(paddingValues)
-                    )
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        HistoryScreen()
+                    }
                 }
             }
         }

@@ -16,11 +16,11 @@ import com.hydrosense.corp.ui.components.*
 import com.hydrosense.corp.ui.theme.*
 
 import com.hydrosense.corp.ui.screen.home.*
-import com.hydrosense.corp.ui.screen.history.*
+import com.hydrosense.corp.ui.screen.test.*
 import com.hydrosense.corp.ui.screen.mode.*
 import com.hydrosense.corp.ui.screen.chart.*
 import com.hydrosense.corp.ui.screen.setting.*
-import com.hydrosense.corp.ui.screen.test.*
+import com.hydrosense.corp.ui.screen.history.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

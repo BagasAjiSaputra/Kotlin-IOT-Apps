@@ -48,7 +48,7 @@ class ApiService(private val baseUrl: String) {
     // Fungsi untuk mengirim Recovery Code
     suspend fun updateRecovery(recovery: String): String {
         return try {
-            val response = ApiClient.client.post("$baseUrl/api/account/recovery") {
+            val response = ApiClient.client.put("$baseUrl/api/account/recovery") {
                 contentType(ContentType.Application.Json)
                 setBody(RecoveryRequest(recovery = recovery))
             }
@@ -86,5 +86,24 @@ class ApiService(private val baseUrl: String) {
             setBody(request)
         }
         return response.body()
+    }
+
+    /** POST /api/trigger */
+    suspend fun triggerRefresh(shouldRefresh: Boolean): String {
+        val payload = TriggerRequest(send = shouldRefresh)
+        return try {
+            val response = ApiClient.client.post("$baseUrl/api/control") {
+                contentType(ContentType.Application.Json)
+                setBody(payload)
+            }
+            if (response.status.value == 200) {
+                val apiResponse = response.body<ApiResponse>()
+                "Trigger Berhasil: ${apiResponse.message}"
+            } else {
+                "Error Trigger: ${response.status.value} - ${response.bodyAsText()}"
+            }
+        } catch (e: Exception) {
+            "Koneksi Gagal (Trigger): ${e.message}"
+        }
     }
 }
