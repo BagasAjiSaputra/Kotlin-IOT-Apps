@@ -2,7 +2,6 @@ package com.hydrosense.corp.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -14,8 +13,8 @@ import com.hydrosense.corp.ui.theme.*
 
 @Composable
 fun DotChart(
-    data: List<Pair<Int, Int>>, // X = index, Y = value
-    labels: List<String> = emptyList(), // time labels
+    data: List<Pair<Int, Int>>,
+    labels: List<String> = emptyList(),
     modifier: Modifier = Modifier
         .fillMaxWidth()
         .height(200.dp),

@@ -77,11 +77,10 @@ dependencies {
     // Lottie JSON
     implementation("com.airbnb.android:lottie-compose:6.1.0")
 
-    // Ktor
     // Ktor Client
     implementation("io.ktor:ktor-client-core:2.3.6")
     implementation("io.ktor:ktor-client-android:2.3.6")
-// Ktor Content Negotiation (for JSON serialization)
+    // Ktor Content Negotiation (for JSON serialization)
     implementation("io.ktor:ktor-client-content-negotiation:2.3.6")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
 

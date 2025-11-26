@@ -24,8 +24,7 @@ fun BottomBar(
         NavItem("History", R.drawable.history, AccentRed),
         NavItem("Mode", R.drawable.mode, AccentPurple),
         NavItem("Chart", R.drawable.chart, AccentBlue),
-        NavItem("Settings", R.drawable.settings, AccentRed),
-        NavItem("Test", R.drawable.shield, AccentGreen)
+        NavItem("Settings", R.drawable.settings, AccentRed)
     )
 
     NavigationBar(

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 import kotlinx.coroutines.delay
 import com.hydrosense.corp.ui.screen.login.LoginActivity
+import com.hydrosense.corp.MainActivity
 
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,6 @@ class SplashActivity : ComponentActivity() {
 fun SplashScreen(onTimeout: () -> Unit) {
     // Load animasi Lottie dari res/raw
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.fruit))
-
     val progress by animateLottieCompositionAsState(
         composition,
         iterations = 1, // play 1x
@@ -39,7 +39,7 @@ fun SplashScreen(onTimeout: () -> Unit) {
     // Pindah otomatis setelah animasi selesai
     LaunchedEffect(progress) {
         if (progress == 1f) {
-            delay(200) // sedikit delay supaya smooth
+            delay(200)
             onTimeout()
         }
     }

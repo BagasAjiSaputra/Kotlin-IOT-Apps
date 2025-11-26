@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LoginRequest(
-    val pin: String // Untuk login
+    val pin: String
 )
 
 @Serializable
 data class RecoveryLoginRequest(
-    val code: String // Untuk verifikasi recovery code
+    val code: String
 )
 
 @Serializable

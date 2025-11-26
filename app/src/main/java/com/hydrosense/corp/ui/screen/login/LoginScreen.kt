@@ -1,17 +1,13 @@
 package com.hydrosense.corp.ui.screen.login
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack // Import ikon untuk hapus
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hydrosense.corp.ui.theme.*
@@ -21,10 +17,10 @@ private const val MAX_PIN_LENGTH = 6
 
 @Composable
 fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
-    // State untuk mengontrol tampilan antara Login PIN atau Recovery
+
+    // State Mode
     var isRecoveryMode by remember { mutableStateOf(false) }
 
-    // ... (Scaffold dan Column tetap sama)
     Scaffold(
         containerColor = BgMain
     ) { padding ->
@@ -37,7 +33,6 @@ fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
 
-            // Header
             Text(
                 text = if (isRecoveryMode) "Recovery" else "PIN",
                 style = MaterialTheme.typography.headlineMedium,
@@ -46,27 +41,22 @@ fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(32.dp))
 
-            // =============================
-            // CARD INPUT / NUMPAD
-            // =============================
 
+            // Numpad
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    // Ganti bentuk card agar lebih sesuai dengan keypad
-//                    .background(BgPurple, shape = RoundedCornerShape(16.dp))
+                    //.background(BgPurple, shape = RoundedCornerShape(16.dp))
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 if (!isRecoveryMode) {
-                    // --- MODE LOGIN PIN (NUMPAD) ---
-
-                    // 1. Tampilan PIN Input (sebagai pengganti TextField)
+                    // Mode Login
                     PinDisplay(pin = vm.inputPin)
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // 2. Numpad
+                    // Numpad
                     Numpad(
                         onNumberClick = { number ->
                             if (vm.inputPin.length < MAX_PIN_LENGTH) {
@@ -80,14 +70,10 @@ fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
                         }
                     )
 
-                    // Kita tidak butuh tombol Login terpisah lagi,
-                    // karena kita akan pindahkan ke logika di dalam LaunchedEffect (Opsional)
-                    // Atau kita biarkan tombol Login tetap ada di bawah Numpad untuk User Experience
-
                     Spacer(modifier = Modifier.height(24.dp))
 
                 } else {
-                    // --- MODE RECOVERY ---
+                    // Mode Rexovery
                     OutlinedTextField(
                         value = vm.inputRecoveryCode,
                         onValueChange = { vm.inputRecoveryCode = it },
@@ -106,16 +92,16 @@ fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // Tombol Aksi Utama (Tetap di sini untuk konsistensi)
+                // TButton Action utama
                 Button(
                     onClick = {
-                        // Jika PIN sudah mencapai panjang maksimum, coba login
                         if (!isRecoveryMode) {
                             vm.attemptLogin(onLoginSuccess)
                         } else {
                             vm.attemptRecoveryLogin(onLoginSuccess)
                         }
                     },
+
                     // Aktifkan jika PIN sudah penuh atau dalam mode Recovery
                     enabled = !vm.isLoading && (isRecoveryMode || vm.inputPin.length == MAX_PIN_LENGTH),
                     modifier = Modifier.fillMaxWidth().height(50.dp),
@@ -135,7 +121,6 @@ fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Teks Status
                 if (vm.responseMessage.isNotEmpty()) {
                     Text(
                         text = vm.responseMessage,
@@ -145,7 +130,6 @@ fun LoginScreen(vm: LoginViewModel = viewModel(), onLoginSuccess: () -> Unit) {
                 }
             }
 
-            // ... (Pindah Mode tetap sama)
             Spacer(modifier = Modifier.height(32.dp))
             Text(
                 text = if (isRecoveryMode) "Back to PIN Login" else "Forgot PIN? Use Recovery Code",

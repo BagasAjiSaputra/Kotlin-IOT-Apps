@@ -55,19 +55,17 @@ fun RowScope.NumpadButton(
     val isDelete = key == "DEL"
     val isEmpty = key == ""
 
-    // Gunakan Modifier.weight(1f) dan padding untuk memastikan ukuran yang seragam
     Box(
         modifier = Modifier
             .weight(1f)
-            .aspectRatio(1f) // Membuat tombol berbentuk kotak
+            .aspectRatio(1f)
             .padding(8.dp)
-            .clickable(onClick = onClick, enabled = !isEmpty), // Tidak bisa diklik jika kosong
+            .clickable(onClick = onClick, enabled = !isEmpty),
         contentAlignment = Alignment.Center
     ) {
         if (!isEmpty) {
-            // Tampilan Tombol
             Card(
-//                shape = RoundedCornerShape(16.dp), // Bentuk tombol bulat atau kotak melengkung
+//                shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isDelete) AccentGreen.copy(alpha = 0.2f) else AccentGreen.copy(alpha = 0.4f) // Warna tombol
                 ),

@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,12 +22,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.hydrosense.corp.R
-// Pastikan path ke SensorCard benar, atau hapus jika tidak lagi digunakan
-// import com.hydrosense.corp.ui.components.SensorCard
-import com.hydrosense.corp.ui.theme.* // Sesuaikan dengan tema Anda
-import com.hydrosense.corp.ui.screen.home.*
-import kotlinx.coroutines.delay
 import com.hydrosense.corp.ui.theme.*
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
@@ -40,12 +35,11 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
     val statusMessage = vm.statusMessage
     val isLoading = vm.isLoading
 
-    // Cek apakah data default (kosong) berdasarkan ID = 0 dan soil = null
     val isDataEmpty = latestData.id == 0 && latestData.soil == null
 
 
     Scaffold(
-        containerColor = BgMain // Latar belakang gelap secara keseluruhan
+        containerColor = BgMain
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -53,7 +47,7 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                 .padding(paddingValues)
                 .padding(horizontal = 5.dp, vertical = 5.dp)
         ) {
-            // --- Reload Button dan Status ---
+            // Reload Button dan Status
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -96,7 +90,7 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
 
             var isTimeout by remember { mutableStateOf(false) }
 
-            // Timer 5 detik hanya saat loading terjadi
+            // Timer 3 detik loading
             LaunchedEffect(isLoading) {
                 if (isLoading) {
                     delay(3000)
@@ -106,7 +100,6 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                 }
             }
 
-            // --- Konten Utama ---
             when {
                 isLoading && isDataEmpty && !isTimeout -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -213,12 +206,12 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
 //                        }
 //                    }
 
-                    // --- Soil Moisture & Temperature Cards ---
+                    // Card Moisture & Temperature
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        // Soil Moisture Card
+                        // Soil Card
                         Card(
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp),
@@ -233,14 +226,13 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                                             color = BgRed,
                                             shape = RoundedCornerShape(12.dp)
                                         ),
-                                    contentAlignment = Alignment.Center // Memastikan ikon berada di tengah Box,
+                                    contentAlignment = Alignment.Center
                                 ) {
-                                    // Konten: Ikon
                                     Icon(
                                         painter = painterResource(id = R.drawable.water),
                                         contentDescription = "Moisture",
-                                        modifier = Modifier.size(24.dp), // Ukuran ikon di dalam Box
-                                        tint = AccentRed // 🌟 Menerapkan warna aksen ke ikon
+                                        modifier = Modifier.size(24.dp),
+                                        tint = AccentRed
                                     )
                                 }
 
@@ -257,11 +249,11 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                             }
                         }
 
-                        // Humidity Card (mirip Temperature)
+                        // Humidity Card
                         Card(
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp),
-                            colors = CardDefaults.cardColors(containerColor = cardColorDarkBlue) // Bisa pakai warna berbeda jika mau
+                            colors = CardDefaults.cardColors(containerColor = cardColorDarkBlue)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
 
@@ -272,14 +264,13 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                                             color = BgBlue,
                                             shape = RoundedCornerShape(12.dp)
                                         ),
-                                    contentAlignment = Alignment.Center // Memastikan ikon berada di tengah Box,
+                                    contentAlignment = Alignment.Center
                                 ) {
-                                    // Konten: Ikon
                                     Icon(
                                         painter = painterResource(id = R.drawable.humidity),
                                         contentDescription = "Humidity",
-                                        modifier = Modifier.size(24.dp), // Ukuran ikon di dalam Box
-                                        tint = AccentBlue // 🌟 Menerapkan warna aksen ke ikon
+                                        modifier = Modifier.size(24.dp),
+                                        tint = AccentBlue
                                     )
                                 }
 
@@ -299,7 +290,7 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
 
                     Spacer(Modifier.height(16.dp))
 
-                    // Temperature Card (dibawah Humidity)
+                    // Temperature Card
                     Card(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -315,14 +306,14 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                                         color = BgBlue,
                                         shape = RoundedCornerShape(12.dp)
                                     ),
-                                contentAlignment = Alignment.Center // Memastikan ikon berada di tengah Box,
+                                contentAlignment = Alignment.Center
                             ) {
                                 // Konten: Ikon
                                 Icon(
                                     painter = painterResource(id = R.drawable.thermometer),
                                     contentDescription = "Temperature",
-                                    modifier = Modifier.size(24.dp), // Ukuran ikon di dalam Box
-                                    tint = AccentBlue // 🌟 Menerapkan warna aksen ke ikon
+                                    modifier = Modifier.size(24.dp),
+                                    tint = AccentBlue
                                 )
                             }
 
@@ -338,55 +329,13 @@ fun HomeScreen(vm: HomeScreenViewModel = viewModel()) {
                             Text(text = "${latestData.temperature?.let { "%.1f".format(it) } ?: "N/A"}°C", color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Medium)
                         }
                     }
-
-                    // System Status Card (opsional, karena tidak ada data di SensorData)
-                    // Jika Anda ingin menampilkannya, Anda harus mengambil data ini dari ViewModel lain
-                    // atau hardcode seperti ini:
-                    /*
-                    Spacer(Modifier.height(16.dp))
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = CardDefaults.cardColors(containerColor = cardColorDarkBlue)
-                    ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_system_status), // Ganti dengan icon system status Anda
-                                    contentDescription = "System Status",
-                                    tint = Color.White,
-                                    modifier = Modifier.size(24.dp)
-                                )
-                                Spacer(Modifier.width(8.dp))
-                                Text(text = "System Status", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Medium)
-                            }
-                            Spacer(Modifier.height(4.dp))
-                            Text(text = "All sensors operational", color = Color.Gray, fontSize = 14.sp)
-                            Spacer(Modifier.height(12.dp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Column {
-                                    Text(text = "Uptime", color = Color.Gray, fontSize = 12.sp)
-                                    Text(text = "24h 35m", color = Color.White, fontSize = 14.sp)
-                                }
-                                Column {
-                                    Text(text = "Mode", color = Color.Gray, fontSize = 12.sp)
-                                    Text(text = "Auto", color = Color.White, fontSize = 14.sp)
-                                }
-                            }
-                        }
-                    }
-                    */
                 }
             }
         }
     }
 }
 
-// --- Helper Functions untuk status dan warna ---
+// Helper untuk warna status
 private fun getSoilMoistureStatus(soil: Int?): String {
     return when (soil) {
         null -> "N/A"
@@ -401,11 +350,11 @@ private fun getSoilMoistureStatus(soil: Int?): String {
 private fun getSoilMoistureStatusColor(soil: Int?): Color {
     return when (soil) {
         null -> Color.Gray
-        in 0..20 -> AccentRed // Merah
-        in 21..40 -> AccentRed // Oranye
-        in 41..60 -> Color(0xFFFFA500) // Oranye terang (Optimal)
-        in 61..80 -> AccentGreen // Hijau
-        else -> AccentGreen // Hijau
+        in 0..20 -> AccentRed
+        in 21..40 -> AccentRed
+        in 41..60 -> Color(0xFFFFA500)
+        in 61..80 -> AccentGreen
+        else -> AccentGreen
     }
 }
 
@@ -422,7 +371,7 @@ private fun getHumidityStatusColor(humidity: Int?): Color {
     return when (humidity) {
         null -> Color.Gray
         in 0..30 -> AccentRed
-        in 31..60 -> Color(0xFF87CEEB) // Biru muda (Normal)
+        in 31..60 -> Color(0xFF87CEEB)
         else -> AccentGreen
     }
 }
@@ -439,21 +388,14 @@ private fun getTemperatureStatus(temp: Double?): String {
 private fun getTemperatureStatusColor(temp: Double?): Color {
     return when (temp) {
         null -> Color.Gray
-        in 0.0..15.0 -> AccentGreen // Biru terang
-        in 15.1..28.0 -> AccentBlue // Biru muda (Normal)
+        in 0.0..15.0 -> AccentGreen
+        in 15.1..28.0 -> AccentBlue
         else -> AccentRed // Merah
     }
 }
 
-// Fungsi helper untuk parsing waktu (sesuaikan format waktu API Anda)
+// Fungsi helper untuk parsing waktu
 private fun parseTimeToMillis(timeString: String): Long {
-    // Contoh sederhana, Anda perlu menggunakan SimpleDateFormat untuk format yang tepat
-    // Misalnya jika formatnya "MMM dd, HH:mm"
-    // val format = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
-    // return try { format.parse(timeString)?.time ?: System.currentTimeMillis() } catch (e: ParseException) { System.currentTimeMillis() }
-
-    // Untuk contoh ini, kita asumsikan format "YYYY-MM-DD HH:MM" atau sejenisnya
-    // Atau bisa juga tidak ditampilkan jika terlalu kompleks untuk dihitung "ago" tanpa library
-    return System.currentTimeMillis() // Mengembalikan waktu sekarang sebagai fallback
+    return System.currentTimeMillis()
 }
 

@@ -9,7 +9,6 @@ import com.hydrosense.corp.data.remote.Prefs
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.hydrosense.corp.data.remote.ApiService
-import com.hydrosense.corp.domain.model.*
 
 class SettingViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -44,7 +43,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
             return
         }
 
-        // Jalankan permintaan API secara asinkron
+        // rekuest API secara async
         viewModelScope.launch {
             responseText = "Mengirim data..."
 

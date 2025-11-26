@@ -13,6 +13,6 @@ class Prefs(context: Context) {
     }
 
     fun getIp(): String {
-        return prefs.getString("BASE_URL", "http://192.168.1.5:3000")!!
+        return prefs.getString("BASE_URL", "http://192.168.100.92:3000")!!
     }
 }

@@ -1,7 +1,6 @@
 package com.hydrosense.corp.ui.screen.mode
 
 import com.hydrosense.corp.ui.screen.home.*
-import com.hydrosense.corp.ui.screen.test.*
 import com.hydrosense.corp.ui.screen.chart.*
 import com.hydrosense.corp.ui.screen.setting.*
 import com.hydrosense.corp.ui.screen.history.*
@@ -36,33 +35,15 @@ class ModeActivity : ComponentActivity() {
                                 currentScreen = screen
                                 when (screen) {
                                     "Home" -> startActivity(Intent(this, HomeActivity::class.java))
-                                    "History" -> startActivity(
-                                        Intent(
-                                            this,
-                                            HistoryActivity::class.java
-                                        )
-                                    )
-
+                                    "History" -> startActivity(Intent(this, HistoryActivity::class.java))
                                     "Mode" -> {}
-                                    "Chart" -> startActivity(
-                                        Intent(
-                                            this,
-                                            ChartActivity::class.java
-                                        )
-                                    )
-
-                                    "Settings" -> startActivity(
-                                        Intent(
-                                            this,
-                                            SettingActivity::class.java
-                                        )
-                                    )
+                                    "Chart" -> startActivity(Intent(this, ChartActivity::class.java))
+                                    "Settings" -> startActivity(Intent(this, SettingActivity::class.java))
                                 }
                             }
                         )
                     }
                 ) { paddingValues ->
-                    // Contoh konten Chart
                     Column(
                         modifier = Modifier
                             .fillMaxSize()

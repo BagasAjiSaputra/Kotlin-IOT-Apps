@@ -53,12 +53,12 @@ class ApiService(private val baseUrl: String) {
                 setBody(RecoveryRequest(recovery = recovery))
             }
             if (response.status.value == 200) {
-                "Recovery Berhasil Diperbarui!"
+                "Recovery Success"
             } else {
                 "Error Recovery: ${response.status.value} - ${response.bodyAsText()}"
             }
         } catch (e: Exception) {
-            "Koneksi Gagal (Recovery): ${e.message}"
+            "Failed (Recovery): ${e.message}"
         }
     }
 
@@ -73,13 +73,13 @@ class ApiService(private val baseUrl: String) {
         }
     }
 
-    /** GET /mode */
+    // GET MODE
     suspend fun getMode(): ModeResponse {
         val response = ApiClient.client.get("$baseUrl/api/mode")
         return response.body()
     }
 
-    /** POST /mode */
+    // POST MODE
     suspend fun updateMode(request: ModeRequest): ModeResponse {
         val response = ApiClient.client.post("$baseUrl/api/mode") {
             contentType(ContentType.Application.Json)
@@ -88,7 +88,7 @@ class ApiService(private val baseUrl: String) {
         return response.body()
     }
 
-    /** POST /api/trigger */
+    // POST TRIGGER
     suspend fun triggerRefresh(shouldRefresh: Boolean): String {
         val payload = TriggerRequest(send = shouldRefresh)
         return try {
@@ -98,38 +98,38 @@ class ApiService(private val baseUrl: String) {
             }
             if (response.status.value == 200) {
                 val apiResponse = response.body<ApiResponse>()
-                "Trigger Berhasil: ${apiResponse.message}"
+                "Trigger Succeed : ${apiResponse.message}"
             } else {
                 "Error Trigger: ${response.status.value} - ${response.bodyAsText()}"
             }
         } catch (e: Exception) {
-            "Koneksi Gagal (Trigger): ${e.message}"
+            "Failed : ${e.message}"
         }
     }
 
     suspend fun loginPin(pin: String): AuthResponse {
         return try {
-            val response = ApiClient.client.post("$baseUrl/api/account/verify/pin") { // Asumsi endpoint login
+            val response = ApiClient.client.post("$baseUrl/api/account/verify/pin") {
                 contentType(ContentType.Application.Json)
                 setBody(LoginRequest(pin = pin))
             }
             // Menggunakan body<AuthResponse> karena respons Anda memiliki success & message
             response.body<AuthResponse>()
         } catch (e: Exception) {
-            AuthResponse(success = false, message = "Koneksi Gagal (Login): ${e.message}")
+            AuthResponse(success = false, message = "Failed (Login): ${e.message}")
         }
     }
 
     // Fungsi untuk login menggunakan Recovery Code
     suspend fun loginRecovery(code: String): AuthResponse {
         return try {
-            val response = ApiClient.client.post("$baseUrl/api/account/verify/recovery") { // Asumsi endpoint recovery
+            val response = ApiClient.client.post("$baseUrl/api/account/verify/recovery") {
                 contentType(ContentType.Application.Json)
                 setBody(RecoveryLoginRequest(code = code))
             }
             response.body<AuthResponse>()
         } catch (e: Exception) {
-            AuthResponse(success = false, message = "Koneksi Gagal (Recovery): ${e.message}")
+            AuthResponse(success = false, message = "Failed (Recovery): ${e.message}")
         }
     }
 }

@@ -17,29 +17,26 @@ class ModeViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = Prefs(application)
     private val api: ApiService = ApiService(prefs.getIp())
 
-    // =============== UI STATE - TEXT FIELD ===============
+    // Ui State
     var smartIdleText by mutableStateOf("")
     var smartSleepText by mutableStateOf("")
     var smartDurationText by mutableStateOf("")
     var manualDurationText by mutableStateOf("")
 
-    // =============== UI STATE - INTEGER ===============
+    // Ui State integer
     var currentMode by mutableStateOf("manual")
-
     var smartIdle by mutableStateOf(0)
     var smartSleep by mutableStateOf(0)
     var smartDuration by mutableStateOf(0)
-
     var manualState by mutableStateOf("close")
     var manualDuration by mutableStateOf(0)
-
     var responseText by mutableStateOf("")
 
     init {
         loadMode()
     }
 
-    // ==================== GET ====================
+    // GET
     fun loadMode() {
         viewModelScope.launch {
             try {
@@ -51,7 +48,7 @@ class ModeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // ==================== POST ====================
+    // POST
     fun updateMode(request: ModeRequest) {
         viewModelScope.launch {
             try {
@@ -64,7 +61,7 @@ class ModeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // ================= APPLY API RESPONSE =================
+    // Apply Api Response
     private fun applyResponse(res: ModeResponse) {
         currentMode = res.mode
 

@@ -1,6 +1,5 @@
 package com.hydrosense.corp.ui.screen.mode
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -31,17 +30,14 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
         Text(
             text = "Control Center",
             color = Color.White,
-            // 🌟 Tambahkan style untuk mempertegas sebagai Title
             style = Typography.bodyLarge
         )
 
-        // Jarak antara Title dan Description
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
             text = "Manage IoT Settings",
-            color = Color.Gray, // Warna yang lebih lembut untuk deskripsi
-            // 🌟 Tambahkan style untuk membedakan dari Title
+            color = Color.Gray,
             style = Typography.labelLarge
         )
 
@@ -50,9 +46,9 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp)) // ⭐ Sudut membulat pada seluruh kartu
-                .background(BgSecond) // ⭐ Warna latar belakang kotak/kartu
-                .padding(10.dp) // Padding internal agar konten tidak menempel ke tepi Box
+                .clip(RoundedCornerShape(16.dp))
+                .background(BgSecond)
+                .padding(10.dp)
         ) {
             Column {
                 Row(
@@ -61,42 +57,35 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
                         .padding(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-
-                    // 🌟 KOREKSI: Mengganti Column yang salah dengan Box
                     Box(
 
                         modifier = Modifier
-                            .size(48.dp) // Ukuran Box (lingkaran luar)
-                            // Menerapkan warna latar belakang dan bentuk lingkaran (BgRed)
+                            .size(48.dp)
                             .background(
                                 color = BgGreen,
                                 shape = CircleShape
                             ),
-                        contentAlignment = Alignment.Center // Memastikan ikon berada di tengah Box,
+                        contentAlignment = Alignment.Center
                     ) {
-                        // Konten: Ikon
                         Icon(
                             painter = painterResource(id = R.drawable.electric),
                             contentDescription = "Mode Desc",
-                            modifier = Modifier.size(24.dp), // Ukuran ikon di dalam Box
-                            tint = AccentGreen // 🌟 Menerapkan warna aksen ke ikon
+                            modifier = Modifier.size(24.dp),
+                            tint = AccentGreen
                         )
                     }
 
-                    Spacer(modifier = Modifier.width(16.dp)) // Memberi jarak antara ikon dan teks
+                    Spacer(modifier = Modifier.width(16.dp))
 
-                    // Column untuk menampung Dua Teks (mengisi sisa ruang)
                     Column(
-                        modifier = Modifier.weight(1f) // Tetap menggunakan weight(1f)
+                        modifier = Modifier.weight(1f)
                     ) {
-                        // Title
                         Text(
                             text = "Operation Mode",
                             color = Color.White,
                             style = Typography.labelLarge
                         )
 
-                        // Description
                         Text(
                             text = "Choose Mode Between Auto & Manual",
                             color = Color.Gray,
@@ -105,7 +94,7 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
                     }
                 }
 
-                // ===== TOGGLE SWITCH (BAGIAN YANG DIUBAH) =====
+                // Toogle Switch
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
@@ -117,12 +106,11 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
                         onCheckedChange = { isChecked ->
                             val newMode = if (isChecked) "smart" else "manual"
 
-                            // ⭐ PERUBAHAN UNTUK OFFLINE-FRIENDLY UI:
-                            // Langsung ubah state lokal (vm.currentMode)
+                            // Perubahan state lokal (vm.currentMode)
                             // agar UI (switch dan card) segera berubah.
                             vm.currentMode = newMode
 
-                            // Lakukan panggilan API di latar belakang
+                            // Rikuest API di latar belakang
                             vm.updateMode(ModeRequest(mode = newMode))
                         },
                         colors = SwitchDefaults.colors(
@@ -132,7 +120,6 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
                             uncheckedTrackColor = AccentBlue.copy(alpha = 0.4f)
                         )
                     )
-
                     Text("Smart", color = AccentGreen)
                 }
             }
@@ -140,7 +127,7 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
 
         Spacer(Modifier.height(24.dp))
 
-        // ===== MODE CARD (Menggunakan vm.currentMode yang sudah diubah) =====
+        // Mode Card
         if (vm.currentMode == "manual") {
             ModeCard(bg = BgSecond) { ManualSection(vm) }
         } else {
@@ -148,16 +135,11 @@ fun ModeScreen(vm: ModeViewModel = viewModel()) {
         }
 
         Spacer(Modifier.height(24.dp))
-
-        // Tampilkan feedback API, termasuk pesan error saat offline
-//        Text(vm.responseText, color = AccentPurple)
+        // Text(vm.responseText, color = AccentPurple)
     }
 }
 
-/*===========================================
-=                 CARD WRAPPER              =
-===========================================*/
-
+// Card Wrapper
 @Composable
 fun ModeCard(bg: Color, content: @Composable ColumnScope.() -> Unit) {
     Surface(
@@ -171,14 +153,9 @@ fun ModeCard(bg: Color, content: @Composable ColumnScope.() -> Unit) {
     }
 }
 
-/*===========================================
-=               MANUAL MODE UI              =
-===========================================*/
-
+// Card Mode Manual
 @Composable
 fun ManualSection(vm: ModeViewModel) {
-
-//    Text("Manual Control", color = AccentGreen)
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -186,41 +163,36 @@ fun ManualSection(vm: ModeViewModel) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        // 🌟 KOREKSI: Mengganti Column yang salah dengan Box
         Box(
 
             modifier = Modifier
-                .size(48.dp) // Ukuran Box (lingkaran luar)
-                // Menerapkan warna latar belakang dan bentuk lingkaran (BgRed)
+                .size(48.dp)
                 .background(
                     color = BgGreen,
                     shape = CircleShape
                 ),
-            contentAlignment = Alignment.Center // Memastikan ikon berada di tengah Box,
+            contentAlignment = Alignment.Center
         ) {
-            // Konten: Ikon
             Icon(
                 painter = painterResource(id = R.drawable.history),
                 contentDescription = "Mode Desc",
-                modifier = Modifier.size(24.dp), // Ukuran ikon di dalam Box
-                tint = AccentGreen // 🌟 Menerapkan warna aksen ke ikon
+                modifier = Modifier.size(24.dp),
+                tint = AccentGreen
             )
         }
 
-        Spacer(modifier = Modifier.width(16.dp)) // Memberi jarak antara ikon dan teks
+        Spacer(modifier = Modifier.width(16.dp))
 
-        // Column untuk menampung Dua Teks (mengisi sisa ruang)
+        // Column untuk menampung 2 Ruang
         Column(
-            modifier = Modifier.weight(1f) // Tetap menggunakan weight(1f)
+            modifier = Modifier.weight(1f)
         ) {
-            // Title
             Text(
                 text = "Timer Settings",
                 color = Color.White,
                 style = Typography.labelLarge
             )
 
-            // Description
             Text(
                 text = "Configure Duration",
                 color = Color.Gray,
@@ -242,9 +214,9 @@ fun ManualSection(vm: ModeViewModel) {
     Spacer(Modifier.height(16.dp))
 
     Row(
-        modifier = Modifier.fillMaxWidth() // Pastikan Row mengisi lebar penuh
+        modifier = Modifier.fillMaxWidth()
     ) {
-        // Tombol 1: BUKA
+        // Open Button
         Button(
             onClick = {
                 vm.updateMode(
@@ -255,7 +227,6 @@ fun ManualSection(vm: ModeViewModel) {
                     )
                 )
             },
-            // ⭐ PENTING: Menggunakan weight(1f) agar tombol mengisi setengah ruang
             modifier = Modifier.weight(1f),
             colors = ButtonDefaults.buttonColors(containerColor = AccentGreen),
             shape = RoundedCornerShape(30)
@@ -263,9 +234,9 @@ fun ManualSection(vm: ModeViewModel) {
             Text("Open", color = Color.White)
         }
 
-        Spacer(Modifier.width(16.dp)) // Jarak 16.dp di antara kedua tombol
+        Spacer(Modifier.width(16.dp))
 
-        // Tombol 2: TUTUP
+        // Close Button
         Button(
             onClick = {
                 vm.updateMode(
@@ -276,7 +247,6 @@ fun ManualSection(vm: ModeViewModel) {
                     )
                 )
             },
-            // ⭐ PENTING: Menggunakan weight(1f) agar tombol mengisi setengah ruang
             modifier = Modifier.weight(1f),
             colors = ButtonDefaults.buttonColors(containerColor = AccentRed),
             shape = RoundedCornerShape(30)
@@ -286,10 +256,9 @@ fun ManualSection(vm: ModeViewModel) {
     }
 }
 
-/*===========================================
-=                SMART MODE UI              =
-===========================================*/
 
+
+// UI Smart mode
 @Composable
 fun SmartSection(vm: ModeViewModel) {
 
@@ -299,42 +268,35 @@ fun SmartSection(vm: ModeViewModel) {
             .padding(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
-        // 🌟 KOREKSI: Mengganti Column yang salah dengan Box
         Box(
 
             modifier = Modifier
-                .size(48.dp) // Ukuran Box (lingkaran luar)
-                // Menerapkan warna latar belakang dan bentuk lingkaran (BgRed)
+                .size(48.dp)
                 .background(
                     color = BgGreen,
                     shape = CircleShape
                 ),
-            contentAlignment = Alignment.Center // Memastikan ikon berada di tengah Box,
+            contentAlignment = Alignment.Center
         ) {
-            // Konten: Ikon
             Icon(
                 painter = painterResource(id = R.drawable.history),
                 contentDescription = "Mode Desc",
-                modifier = Modifier.size(24.dp), // Ukuran ikon di dalam Box
-                tint = AccentGreen // 🌟 Menerapkan warna aksen ke ikon
+                modifier = Modifier.size(24.dp),
+                tint = AccentGreen
             )
         }
 
-        Spacer(modifier = Modifier.width(16.dp)) // Memberi jarak antara ikon dan teks
+        Spacer(modifier = Modifier.width(16.dp))
 
-        // Column untuk menampung Dua Teks (mengisi sisa ruang)
         Column(
-            modifier = Modifier.weight(1f) // Tetap menggunakan weight(1f)
+            modifier = Modifier.weight(1f)
         ) {
-            // Title
             Text(
                 text = "Timer Settings",
                 color = Color.White,
                 style = Typography.labelLarge
             )
 
-            // Description
             Text(
                 text = "Configure Duration",
                 color = Color.Gray,
@@ -344,7 +306,6 @@ fun SmartSection(vm: ModeViewModel) {
     }
 
     Spacer(Modifier.height(12.dp))
-
 
     DarkInputField(
         value = vm.smartIdleText,
@@ -391,33 +352,28 @@ fun SmartSection(vm: ModeViewModel) {
             )
         },
         modifier = Modifier.fillMaxWidth(),
-        // 1. Ubah warna menjadi hijau custom
         colors = ButtonDefaults.buttonColors(AccentGreen),
-        // 2. Terapkan bentuk dengan sudut yang sangat membulat
-        shape = RoundedCornerShape(20) // Nilai 50 atau yang serupa akan memberikan bentuk pil/kapsul
+        shape = RoundedCornerShape(20)
     ) {
-        // Gunakan Row untuk menempatkan ikon dan teks secara horizontal
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(vertical = 4.dp) // Sesuaikan padding vertikal jika perlu
+            modifier = Modifier.padding(vertical = 4.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.settings),
                 contentDescription = "Apply Settings",
                 modifier = Modifier
                     .size(25.dp)
-                    .padding(end = 8.dp), // Ukuran ikon di dalam Box
-                tint = AccentWhite // 🌟 Menerapkan warna aksen ke ikon
+                    .padding(end = 8.dp),
+                tint = AccentWhite
             )
-            // Teks
+
             Text("Apply Settings", color = Color.White)
         }
     }
 }
 
-/*===========================================
-=              DARK INPUT FIELD             =
-===========================================*/
+
 
 @Composable
 fun DarkInputField(

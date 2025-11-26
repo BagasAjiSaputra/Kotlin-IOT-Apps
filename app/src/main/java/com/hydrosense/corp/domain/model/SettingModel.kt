@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PinRequest(
-    val pin: String // Harus cocok dengan kunci 'pin' di API
+    val pin: String
 )
 
 @Serializable
 data class RecoveryRequest(
-    val recovery: String // Harus cocok dengan kunci 'recovery' di API
+    val recovery: String
 )
 
 @Serializable

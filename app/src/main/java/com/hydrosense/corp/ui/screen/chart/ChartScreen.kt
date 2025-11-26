@@ -48,7 +48,7 @@ fun ChartScreen(vm: ChartViewModel = viewModel()) {
 
         Spacer(Modifier.height(16.dp))
 
-        // --- Periksa Error dan Langsung Tampilkan/Return ---
+        // Periksa Error dan Langsung Tampilkan/Return
         vm.errorMessage?.let { message ->
             Box(
                 modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
@@ -56,7 +56,7 @@ fun ChartScreen(vm: ChartViewModel = viewModel()) {
             ) {
                 Text(
                     text = message,
-                    color = MaterialTheme.colorScheme.error, // Warna merah untuk error
+                    color = MaterialTheme.colorScheme.error,
                     style = Typography.bodyMedium.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold),
                     modifier = Modifier.padding(16.dp)
                 )
@@ -64,9 +64,8 @@ fun ChartScreen(vm: ChartViewModel = viewModel()) {
             // Hentikan rendering sisa konten jika ada error
             return
         }
-        // ------------------------------------------------
 
-        // Konten Chart (Hanya dirender jika tidak ada error)
+        // CHART
         val validData = vm.sensorData.filter { it.humidity != null && it.temperature != null }
             .reversed()
 
@@ -79,36 +78,31 @@ fun ChartScreen(vm: ChartViewModel = viewModel()) {
 
                 val progress by animateLottieCompositionAsState(
                     composition,
-                    iterations = 20, // play 1x
+                    iterations = 20,
                     restartOnPlay = false
                 )
 
                 LottieAnimation(
                     composition,
                     progress,
-                    modifier = Modifier.size(100.dp) // Ukuran animasi
+                    modifier = Modifier.size(100.dp)
                 )
             }
         } else {
-            // Data Chart
             Column(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
 
-                // Map ke Pair<Int, Int> untuk Y
                 val humidityData = validData.mapIndexed { index, sensor ->
                     index to (sensor.humidity ?: 0)
                 }
                 val temperatureData = validData.mapIndexed { index, sensor ->
                     index to ((sensor.temperature ?: 0.0).toInt())
                 }
-
-                // Ambil jam saja dari waktu
-
                 val timeLabels = validData.map { sensor ->
                     sensor.time?.let { timeStr ->
                         try {
                             val parts = timeStr.split(" ")
                             if (parts.size >= 3) {
-                                parts[0] // jam AM/PM
+                                parts[0]
                             } else ""
                         } catch (e: Exception) {
                             ""

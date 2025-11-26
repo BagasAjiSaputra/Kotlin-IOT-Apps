@@ -15,12 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.hydrosense.corp.R
 import com.hydrosense.corp.ui.components.SensorCard
-import com.hydrosense.corp.ui.theme.* // Pastikan AccentRed ada di sini, atau ganti dengan Color.Red
+import com.hydrosense.corp.ui.theme.*
 import kotlinx.coroutines.delay
 
 @Composable
@@ -39,9 +38,6 @@ fun HistoryScreen(vm: DataViewModel = viewModel()) {
             .fillMaxSize()
             .padding(horizontal = 4.dp, vertical = 8.dp)
     ) {
-
-        // ... (Header Title dan Description)
-
         Text(
             text = "Sensor History",
             color = Color.White,
@@ -58,7 +54,7 @@ fun HistoryScreen(vm: DataViewModel = viewModel()) {
 
         Spacer(Modifier.height(2.dp))
 
-        // --- Reload Button dan Status ---
+        // Reload Status
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -102,7 +98,7 @@ fun HistoryScreen(vm: DataViewModel = viewModel()) {
 
         var isTimeout by remember { mutableStateOf(false) }
 
-        // Timer 5 detik hanya saat loading terjadi
+        // Timer 3 detik loading
         LaunchedEffect(isLoading) {
             if (isLoading) {
                 delay(3000)
@@ -114,7 +110,7 @@ fun HistoryScreen(vm: DataViewModel = viewModel()) {
 
         when {
 
-            // 🟡 1. Loading NORMAL (belum timeout)
+            // Loading
             isLoading && sensorItems.isEmpty() && !isTimeout -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
                     CircularProgressIndicator(
@@ -124,14 +120,14 @@ fun HistoryScreen(vm: DataViewModel = viewModel()) {
                 }
             }
 
-            // 🔴 2. TIMEOUT setelah 5 detik loading → Internet lambat
+            // Timeout
 //            isLoading && sensorItems.isEmpty() && isTimeout -> {
 //                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 //
 //                }
 //            }
 
-            // ⚪ 3. Fetch sukses tapi LIST kosong (bukan error)
+            // Fetch Sukses tapi kosonks
             sensorItems.isEmpty() && !statusMessage.contains("Gagal", ignoreCase = true) -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
 
@@ -153,7 +149,7 @@ fun HistoryScreen(vm: DataViewModel = viewModel()) {
                 }
             }
 
-            // 🟢 4. Data Ada
+            // Fetch berhasil
             else -> {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp),

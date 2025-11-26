@@ -14,57 +14,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hydrosense.corp.R
-import com.hydrosense.corp.ui.theme.*
 
-@Composable
-fun BigSensorSection(
-    time: String,
-    soil: Int,
-    humidity: Int,
-    temperature: Double
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(18.dp)
-    ) {
-
-        Text(
-            text = time,
-            fontSize = 14.sp,
-            color = Color.Gray
-        )
-
-        HomeCard(
-            iconRes = R.drawable.water,
-            title = "Soil Moisture",
-            value = "$soil%",
-            iconTint = AccentRed,
-            iconBg = BgRed,
-            valueColor = AccentRed
-        )
-
-        HomeCard(
-            iconRes = R.drawable.humidity,
-            title = "Humidity",
-            value = "$humidity%",
-            iconTint = AccentBlue,
-            iconBg = BgBlue,
-            valueColor = AccentBlue
-        )
-
-        HomeCard(
-            iconRes = R.drawable.thermometer,
-            title = "Temperature",
-            value = "${temperature}°C",
-            iconTint = AccentGreen,
-            iconBg = BgGreen,
-            valueColor = AccentGreen
-        )
-    }
-}
 
 @Composable
 fun HomeCard(

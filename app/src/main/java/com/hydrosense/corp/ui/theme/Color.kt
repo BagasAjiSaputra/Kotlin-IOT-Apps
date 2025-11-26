@@ -18,11 +18,6 @@ val AccentPurple = Color(0xFF8E85D2)
 
 val AccentWhite = Color(0xFFFFFFFF)
 
-// Warna untuk meniru desain
-val cardColorDarkGreen = Color(0xFF27382E) // Mirip dengan kartu paling atas
-val cardColorDarkRed = Color(0xFF4C2A2F)   // Mirip dengan kartu Soil Moisture
-val cardColorDarkBlue = Color(0xFF2E3E4C)  // Mirip dengan kartu Temperature/System Status
-val textColorOnline = Color(0xFF32CD32)    // Warna hijau terang untuk 'Online'
-val textColorActive = Color(0xFF32CD32)    // Warna hijau terang untuk 'Active'
-val textColorNormal = Color(0xFF87CEEB)    // Warna biru muda untuk 'Normal'
-val textColorOptimal = Color(0xFFFFA500)   // Warna oranye untuk 'Optimal'
+val cardColorDarkGreen = Color(0xFF27382E)
+val cardColorDarkRed = Color(0xFF4C2A2F)
+val cardColorDarkBlue = Color(0xFF2E3E4C)  // Temperature/System Status

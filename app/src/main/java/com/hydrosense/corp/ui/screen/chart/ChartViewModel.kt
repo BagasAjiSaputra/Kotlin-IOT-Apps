@@ -15,33 +15,25 @@ import java.io.IOException
 class ChartViewModel(application: Application) : AndroidViewModel(application) {
 
     private val prefs = Prefs(application)
-    // Asumsi ApiService dapat dilewatkan/dibuat di ViewModel
-    // Pastikan ini terinisialisasi dengan benar
     private val apiService = ApiService(prefs.getIp())
-
-    // pastikan tipe SensorData
     var sensorData by mutableStateOf(listOf<SensorData>())
-
-    // State untuk menyimpan pesan error
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
     fun fetchSensorData() {
-        // Reset error message sebelum fetch baru
         errorMessage = null
         viewModelScope.launch {
             try {
-                // List<SensorData>
+                // List Sensor Data
                 val response = apiService.getSensorData()
-                sensorData = response.map { it } // pastikan type List<SensorData>
+                sensorData = response.map { it }
             } catch (e: IOException) {
-                // Tangani error koneksi/jaringan (misalnya, gagal fetch)
-                errorMessage = "Gagal mengambil data. Pastikan koneksi internet Anda aktif."
-                // Opsional: Log error untuk debugging
+                // Tangani error konegsi
+                errorMessage = "Failed to Fetch, Check Internet"
+                // Log Debuggink
                 e.printStackTrace()
             } catch (e: Exception) {
-                // Tangani error lain (misalnya, parsing error)
-                errorMessage = "Terjadi kesalahan: ${e.message ?: "Unknown Error"}"
+                errorMessage = "Something Wrong : ${e.message ?: "Unknown Error"}"
                 e.printStackTrace()
             }
         }

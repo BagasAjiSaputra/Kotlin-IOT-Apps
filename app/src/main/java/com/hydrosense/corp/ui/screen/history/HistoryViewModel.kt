@@ -22,10 +22,8 @@ class DataViewModel(application: Application) : AndroidViewModel(application) {
     var baseUrl by mutableStateOf("")
     var sensorList by mutableStateOf<List<SensorData>>(emptyList())
 
-    // ⭐ Tambahkan State untuk mengontrol status loading
+    // State untuk mengontrol status loading
     var isLoading by mutableStateOf(false)
-
-    // ⭐ Gunakan statusMessage untuk pesan keberhasilan/kegagalan
     var statusMessage by mutableStateOf("")
 
     init {
@@ -33,31 +31,30 @@ class DataViewModel(application: Application) : AndroidViewModel(application) {
         apiService = ApiService(baseUrl)
     }
 
-    fun saveBaseUrl() {
-        prefs.saveIp(baseUrl)
-        apiService = ApiService(baseUrl)
-        statusMessage = "Base URL saved"
-    }
+//    fun saveBaseUrl() {
+//        prefs.saveIp(baseUrl)
+//        apiService = ApiService(baseUrl)
+//        statusMessage = "Base URL saved"
+//    }
 
     fun loadData() {
         viewModelScope.launch {
-            // 1. Mulai Loading
             isLoading = true
             statusMessage = "Fetching Data"
 
             try {
-                // 2. Coba ambil data
+                // Ambil data
                 val data = apiService.getSensorData()
-                sensorList = data // Ganti data lama dengan data baru
+                sensorList = data // Timpa data (penimpa handals)
 
-                // 3. Pemuatan Berhasil
+
                 statusMessage = if (sensorList.isEmpty()) {
                     "Something Wrong !"
                 } else {
                     "Fetching Data (${sensorList.size} item)."
                 }
             } catch (e: Exception) {
-                // 4. Tangani Kegagalan (Jaringan/Timeout/Lainnya)
+                // Handling error lain
                 val errorMessage = when (e) {
                     is UnknownHostException, is ConnectException ->
                         "Connection Error !"
@@ -67,8 +64,6 @@ class DataViewModel(application: Application) : AndroidViewModel(application) {
                         "Failed Fetching Data (Error: ${e.message})"
                 }
                 statusMessage = errorMessage
-                // Pastikan list tetap kosong jika ini adalah load pertama yang gagal
-                // atau pertahankan data lama jika itu adalah refresh yang gagal
             } finally {
                 // 5. Akhiri Loading
                 isLoading = false

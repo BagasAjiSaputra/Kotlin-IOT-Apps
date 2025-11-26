@@ -24,10 +24,7 @@ class LoginActivity : ComponentActivity() {
 
         setContent {
             HydroSenseTheme {
-                // Inisialisasi ViewModel
                 val vm: LoginViewModel = viewModel()
-
-                // Memuat Composable LoginScreen
                 LoginScreen(vm = vm, onLoginSuccess = navigateToHome)
             }
         }

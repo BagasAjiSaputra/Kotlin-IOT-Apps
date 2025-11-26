@@ -2,7 +2,6 @@ package com.hydrosense.corp.ui.screen.chart
 
 import com.hydrosense.corp.ui.screen.home.*
 import com.hydrosense.corp.ui.screen.mode.*
-import com.hydrosense.corp.ui.screen.test.*
 import com.hydrosense.corp.ui.screen.setting.*
 import com.hydrosense.corp.ui.screen.history.*
 
@@ -58,7 +57,6 @@ class ChartActivity : ComponentActivity() {
                         )
                     }
                 ) { paddingValues ->
-                    // Contoh konten Chart
                     Column(
                         modifier = Modifier
                             .fillMaxSize()

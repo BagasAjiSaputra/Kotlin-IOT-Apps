@@ -8,14 +8,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.hydrosense.corp.R
 
-// Font utama
 val Poppins = FontFamily(
     Font(R.font.poppins, FontWeight.Normal),
     Font(R.font.poppins_medium, FontWeight.Medium),
     Font(R.font.poppins_bold, FontWeight.Bold)
 )
 
-// Typography minimalis: hanya 3 style
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = Poppins,
@@ -41,6 +39,4 @@ val Typography = Typography(
         fontSize = 10.sp,
         lineHeight = 16.sp
     ),
-
-
 )

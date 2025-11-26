@@ -11,7 +11,7 @@ data class SmartConfig(
 
 @Serializable
 data class ManualConfig(
-    val state: String = "close", // "open" / "close"
+    val state: String = "close",
     val duration: Int = 0
 )
 
@@ -20,8 +20,8 @@ data class ModeResponse(
     val mode: String,
     val smart: SmartConfig,
     val manual: ManualConfig,
-    val success: Boolean? = null, // hanya ada di POST response
-    val error: String? = null     // jika error
+    val success: Boolean? = null,
+    val error: String? = null
 )
 
 @Serializable

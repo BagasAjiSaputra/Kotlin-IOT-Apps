@@ -38,26 +38,13 @@ class HistoryActivity : ComponentActivity() {
                                     "Home" -> startActivity(Intent(this, HomeActivity::class.java))
                                     "History" -> {}
                                     "Mode" -> startActivity(Intent(this, ModeActivity::class.java))
-                                    "Chart" -> startActivity(
-                                        Intent(
-                                            this,
-                                            ChartActivity::class.java
-                                        )
-                                    )
-
-                                    "Settings" -> startActivity(
-                                        Intent(
-                                            this,
-                                            SettingActivity::class.java
-                                        )
-                                    )
+                                    "Chart" -> startActivity(Intent(this, ChartActivity::class.java))
+                                    "Settings" -> startActivity(Intent(this, SettingActivity::class.java))
                                 }
                             }
                         )
                     }
                 ) { paddingValues ->
-                    // Pass viewmodel ke HistoryScreen
-                    // Contoh konten Chart
                     Column(
                         modifier = Modifier
                             .fillMaxSize()

@@ -16,7 +16,6 @@ import com.hydrosense.corp.ui.components.*
 import com.hydrosense.corp.ui.theme.*
 
 import com.hydrosense.corp.ui.screen.home.*
-import com.hydrosense.corp.ui.screen.test.*
 import com.hydrosense.corp.ui.screen.mode.*
 import com.hydrosense.corp.ui.screen.chart.*
 import com.hydrosense.corp.ui.screen.setting.*
@@ -45,7 +44,6 @@ class MainActivity : ComponentActivity() {
                             "Mode" -> startActivity(Intent(this@MainActivity, ModeActivity::class.java))
                             "Chart" -> startActivity(Intent(this@MainActivity, ChartActivity::class.java))
                             "Settings" -> startActivity(Intent(this@MainActivity, SettingActivity::class.java))
-                            "Test" -> startActivity(Intent(this@MainActivity, TestActivity::class.java))
                         }
                     }
                 )

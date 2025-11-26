@@ -23,37 +23,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-// Import warna dari paket tema yang disediakan
 import com.hydrosense.corp.ui.theme.*
 
 import android.content.Intent
 import androidx.compose.ui.platform.LocalContext
 import com.hydrosense.corp.ui.screen.login.LoginActivity
 
-
-
 @Composable
 fun SettingScreen(vm: SettingViewModel = viewModel()) {
 
-    // Gunakan parameter containerColor pada Scaffold untuk mengatur warna latar belakang.
-    // Kita gunakan BgMain untuk latar belakang utama yang gelap.
     Scaffold(
-        containerColor = BgMain // Mengatur latar belakang Scaffold menjadi hitam/gelap
+        containerColor = BgMain
     ) { padding ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
-            // Tidak perlu .background(BgMain) lagi jika sudah diatur di Scaffold
-            ,
+                .padding(16.dp),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Top
         ) {
-
-            // OutlinedTextField biasanya menyesuaikan secara otomatis jika MaterialTheme dalam Dark Mode.
-            // Warna label dan outline akan menjadi putih/terang.
 
             // Input PIN
             Column(
@@ -152,20 +142,15 @@ fun SettingScreen(vm: SettingViewModel = viewModel()) {
             }
 
 
-
-            /* =============================
-               ========== BASE URL =========
-               ============================= */
-
             Spacer(modifier = Modifier.height(32.dp))
 
+            // BASE URL
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(BgPurple, shape = RoundedCornerShape(12.dp))
                     .padding(16.dp)
             ) {
-
                 Text(
                     text = "Base URL Config",
                     color = AccentPurple,
@@ -199,14 +184,13 @@ fun SettingScreen(vm: SettingViewModel = viewModel()) {
                 Button(
                     onClick = { vm.saveBaseUrl() },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp)   // 🔥 bikin tombol rounded
+                    shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
                         text = "Save URL",
                         color = AccentWhite
                     )
                 }
-
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -221,5 +205,3 @@ fun SettingScreen(vm: SettingViewModel = viewModel()) {
         }
     }
 }
-
-// Catatan: Anda juga perlu memastikan bahwa file SettingViewModel (yang tidak Anda berikan) sudah diimpor.
